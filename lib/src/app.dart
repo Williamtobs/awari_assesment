@@ -7,14 +7,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Awari Assessment',
+      title: 'Lumière',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: const Color(0xFFF3F0E8),
+        fontFamily: 'Roboto',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // Switch between the two screens to test them
-      // home: TaskBoardScreen(),
       home: OnboardingScreen(),
+      // home: const HomeScreen(),
     );
   }
 }

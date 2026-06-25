@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lumi_fashion_mobile/src/core/constants/app_colors.dart';
+import 'package:lumi_fashion_mobile/src/presentation/home/view/home_screen.dart';
 import 'package:lumi_fashion_mobile/src/presentation/onboarding/widgets/custom_marquee.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -74,7 +75,7 @@ class OnboardingScreen extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'TRENDY COUTURE',
+                        'TRENDY COLLECTIONS',
                         maxLines: 1,
                         style: TextStyle(
                           fontSize: width * 0.18,
@@ -96,7 +97,14 @@ class OnboardingScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  },
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Padding(
