@@ -9,6 +9,7 @@ import '../widgets/home_bottom_nav.dart';
 import '../widgets/home_search_field.dart';
 import '../widgets/home_top_bar.dart';
 import '../widgets/product_masonry_grid.dart';
+import '../../product_detail/view/product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.repository = const ProductRepository()});
@@ -79,6 +80,14 @@ class _HomeScreenState extends State<HomeScreen>
           p.id == product.id ? p.copyWith(isFavorite: !p.isFavorite) : p,
       ];
     });
+  }
+
+  void _openProduct(Product product) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ProductDetailScreen(product: product),
+      ),
+    );
   }
 
   @override
@@ -189,6 +198,7 @@ class _HomeScreenState extends State<HomeScreen>
               : ProductMasonryGrid(
                   products: products,
                   onFavoriteToggle: _toggleFavorite,
+                  onProductTap: _openProduct,
                 ),
           applyHorizontalPadding: false,
         ),

@@ -6,8 +6,19 @@ import 'package:lumi_fashion_mobile/src/presentation/home/view/home_screen.dart'
 import 'package:lumi_fashion_mobile/src/presentation/home/widgets/category_filter_bar.dart';
 import 'package:lumi_fashion_mobile/src/presentation/home/widgets/favorite_button.dart';
 import 'package:lumi_fashion_mobile/src/presentation/home/widgets/product_card.dart';
+import 'package:lumi_fashion_mobile/src/presentation/product_detail/view/product_detail_screen.dart';
+import 'package:lumi_fashion_mobile/src/presentation/product_detail/widgets/size_selector.dart';
 
 Widget _wrap(Widget child) => MaterialApp(home: child);
+
+const _product = Product(
+  id: 'demo',
+  name: "Men's Fleece Pullover Hoodie",
+  price: 97,
+  category: 'Sweatshirts',
+  swatch: Color(0xFFD7DAD0),
+  description: 'A warm, brushed fleece hoodie.',
+);
 
 void main() {
   testWidgets('renders brand, search and the product catalogue', (
@@ -72,6 +83,40 @@ void main() {
       tester.widget<FavoriteButton>(heart).isFavorite,
       isTrue,
     );
+  });
+
+  testWidgets('product detail renders gallery, title, price and sizes', (
+    tester,
+  ) async {
+    await tester.pumpWidget(_wrap(const ProductDetailScreen(product: _product)));
+    await tester.pump();
+
+    expect(find.text('Product'), findsOneWidget);
+    expect(find.text("Men's Fleece Pullover Hoodie"), findsOneWidget);
+    expect(find.text('Price: €97'), findsOneWidget);
+    expect(find.text('Select size'), findsOneWidget);
+    expect(find.byType(SizeSelector), findsOneWidget);
+    expect(find.text('Add to cart'), findsOneWidget);
+    expect(find.text('A warm, brushed fleece hoodie.'), findsOneWidget);
+  });
+
+  testWidgets('detail defaults the selected size to M', (tester) async {
+    await tester.pumpWidget(_wrap(const ProductDetailScreen(product: _product)));
+    await tester.pump();
+
+    expect(tester.widget<SizeSelector>(find.byType(SizeSelector)).selectedIndex,
+        _product.sizes.indexOf('M'));
+  });
+
+  testWidgets('tapping a product card opens its detail page', (tester) async {
+    await tester.pumpWidget(_wrap(const HomeScreen()));
+    await tester.pump();
+
+    await tester.tap(find.byType(ProductCard).first);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ProductDetailScreen), findsOneWidget);
+    expect(find.text('Add to cart'), findsOneWidget);
   });
 
   test('Product.formattedPrice renders a whole-dollar string', () {

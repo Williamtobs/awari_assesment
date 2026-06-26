@@ -3,24 +3,29 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/soft_icon_button.dart';
 
-class HomeTopBar extends StatelessWidget {
-  const HomeTopBar({
+class DetailTopBar extends StatelessWidget {
+  const DetailTopBar({
     super.key,
-    this.onMenuTap,
+    required this.title,
+    this.onBack,
     this.onBagTap,
   });
 
-  final VoidCallback? onMenuTap;
+  final String title;
+  final VoidCallback? onBack;
   final VoidCallback? onBagTap;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SoftIconButton(icon: Icons.menu_rounded, onTap: onMenuTap),
+        SoftIconButton(
+          icon: Icons.arrow_back_rounded,
+          onTap: onBack ?? () => Navigator.of(context).maybePop(),
+        ),
         Expanded(
           child: Text(
-            'Lumière',
+            title,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 20,

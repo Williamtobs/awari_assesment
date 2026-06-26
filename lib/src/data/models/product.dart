@@ -11,6 +11,9 @@ class Product {
     this.imageUrl,
     this.isFavorite = false,
     this.imageAspectRatio = 0.82,
+    this.description = '',
+    this.gallery = const [],
+    this.sizes = const ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'],
   });
 
   final String id;
@@ -23,7 +26,19 @@ class Product {
   final bool isFavorite;
   final double imageAspectRatio;
 
+  final String description;
+  final List<String> gallery;
+  final List<String> sizes;
+
   String get formattedPrice => '\$${price.toStringAsFixed(0)}';
+
+  String get euroPrice => '€${price.toStringAsFixed(0)}';
+
+  List<String> get images {
+    if (gallery.isNotEmpty) return gallery;
+    if (imageUrl != null) return [imageUrl!];
+    return const [];
+  }
 
   Product copyWith({bool? isFavorite}) {
     return Product(
@@ -35,6 +50,9 @@ class Product {
       imageUrl: imageUrl,
       isFavorite: isFavorite ?? this.isFavorite,
       imageAspectRatio: imageAspectRatio,
+      description: description,
+      gallery: gallery,
+      sizes: sizes,
     );
   }
 }
