@@ -20,6 +20,7 @@ class OnboardingScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: height * 0.7,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   image: const DecorationImage(
@@ -42,18 +43,25 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -70,
-                      child: Text(
-                        'Lumière',
-                        style: TextStyle(
-                          fontSize: 100,
-                          fontWeight: FontWeight.w600,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 1.8
-                            ..color = AppColors.foregroundColor.withValues(
-                              alpha: 0.85,
-                            ),
+                      left: 12,
+                      right: 12,
+                      bottom: -height * 0.04,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          'Lumière',
+                          style: TextStyle(
+                            fontSize: 120,
+                            fontWeight: FontWeight.w600,
+                            height: 1,
+                            letterSpacing: 1,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 2.2
+                              ..color = AppColors.foregroundColor.withValues(
+                                alpha: 0.85,
+                              ),
+                          ),
                         ),
                       ),
                     ),
